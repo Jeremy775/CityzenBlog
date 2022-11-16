@@ -1,0 +1,9 @@
+- INSTALLATION 
+
+ne pas oublier de mettre server.php en exception AVG
+
+- INSTALLATION TAILWINDCSS 
+https://tailwindcss.com/docs/guides/laravel
+
+- INSTALLATION BREEZE
+https://laravel.com/docs/9.x/starter-kits
