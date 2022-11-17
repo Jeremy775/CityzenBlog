@@ -10,3 +10,8 @@
     background-size: cover;
     height: 97vh;
 }
+
+.navbar a {
+    text-decoration: none;
+    color: blanchedalmond;
+}
