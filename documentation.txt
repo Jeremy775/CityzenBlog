@@ -41,3 +41,16 @@ class AppServiceProvider extends ServiceProvider
     }
 }
 
+- AUTO REFRESH + COMPILATION ASSETS
+Ajout dans plugin de vite.config.js
+{
+            name: 'blade',
+            handleHotUpdate({ file, server }) {
+                if (file.endsWith('.blade.php')) {
+                    server.ws.send({
+                        type: 'full-reload',
+                        path: '*',
+                    });
+                }
+            },
+        }
