@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\post;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\Return_;
 
 class PostController extends Controller
 {
@@ -14,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return view('blog.index')->with('posts', Post::orderBy('updated_at', 'DESC')->get());
     }
 
     /**
