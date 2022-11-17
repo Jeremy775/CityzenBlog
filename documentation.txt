@@ -54,3 +54,6 @@ Ajout dans plugin de vite.config.js
                 }
             },
         }
+
+- PACKAGE POUR LES SLUG
+composer require cviebrock/eloquent-sluggable
