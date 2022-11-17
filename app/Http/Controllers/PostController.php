@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\Return_;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('blog.create');
     }
 
     /**
@@ -36,51 +41,86 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg|max:5048'
+        ]);
+
+        // on renome l'image stockée
+        $newImgName = uniqid() . '-' . $request->title . '-' . $request->image->extension();
+        
+        // on déplace l'image dans le dossier images
+        $request->image->move(public_path('images'), $newImgName);
+
+        Post::create([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
+            'image_path' => $newImgName,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect('/blog')->with('message', 'Votre post a été publié');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        return view('blog.show')->with('post', Post::where('slug', $slug)->first());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($slug)
     {
-        //
+        return view('blog.edit')->with('post', Post::where('slug', $slug)->first());
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, $slug)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        Post::where('slug', $slug)->update([
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'slug' => SlugService::createSlug(Post::class, 'slug', $request->title),
+            'user_id' => auth()->user()->id
+        ]);
+
+        return redirect('/blog')->with('message', 'Votre post a ete modifié');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  string $slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($slug)
     {
-        //
+        $post = Post::where('slug', $slug);
+        $post->delete();
+
+        return redirect('/blog')->with('message', 'Votre post a ete supprimé');
     }
 }
