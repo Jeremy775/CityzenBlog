@@ -4,7 +4,7 @@
     <div class="flex text-gray-100 pt-10">
         <div class="m-auto pt-4 pb-16 sm:m-auto w-4/5 block text-center">
             <h1 class="accroche sm:text-white text-5xl uppercase font-bold text-shadow-md pb-14">
-                Vous voulez rejoindre la communauté du plus grand club de Manchester ?
+                Vous voulez tout savoir sur l'actualité du plus grand club de Manchester ?
             </h1>
             <a 
                 href="/blog"
@@ -22,7 +22,7 @@
 
     <div class="m-auto sm:m-auto text-left w-4/5 block">
         <h2 class="text-3xl font-extrabold text-gray-600">
-            Vous voulez discuter du dernier triplé d'Haaland ?
+            Vous voulez tout savoir sur le phénomène Haaland ?
         </h2>
         
         <p class="py-8 text-gray-500 text-s">
@@ -36,7 +36,7 @@
         <a 
             href="/blog"
             class="uppercase bg-blue-500 text-gray-100 text-s font-extrabold py-3 px-8 rounded-3xl">
-            Find Out More
+            En savoir plus
         </a>
     </div>
 </div>
@@ -63,7 +63,7 @@
     <div class="flex bg-yellow-700 text-gray-100 pt-10">
         <div class="m-auto pt-4 pb-16 sm:m-auto w-4/5 block">
             <span class="uppercase text-xs">
-                PHP
+                De Bruyne
             </span>
 
             <h3 class="text-xl font-bold py-10">
@@ -73,7 +73,7 @@
             <a 
                 href=""
                 class="uppercase bg-transparent border-2 border-gray-100 text-gray-100 text-xs font-extrabold py-3 px-5 rounded-3xl">
-                Find Out More
+                En savoir plus
             </a>
         </div>
     </div>
